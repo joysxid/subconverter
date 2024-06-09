@@ -190,15 +190,39 @@ jobs:
         working-directory: bin
 
       - name: Tag Repo
-        uses: richardsimko/update-tag@v1.0.6
+        uses: actions/github-script@v6
         with:
-          tag_name: Alpha
+          script: |
+            const tagName = 'Alpha';
+            const ref = `refs/tags/${tagName}`;
+            const sha = '${{ github.sha }}';
+
+            // Delete the tag if it already exists
+            try {
+              await github.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref
+              });
+            } catch (error) {
+              if (error.status !== 422) {
+                throw error;
+              }
+            }
+
+            // Create the tag
+            await github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref,
+              sha
+            });
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1
-        if: ${{  success() }}
+        if: ${{ success() }}
         with:
           tag: Alpha
           tag_name: Alpha
