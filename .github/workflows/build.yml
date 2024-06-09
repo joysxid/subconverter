@@ -85,7 +85,7 @@ jobs:
   needs:
     [
       linux64_build,
-      linux32_build
+      linux32_build,
     ]
   runs-on: ubuntu-latest
   steps:
