@@ -225,14 +225,6 @@ jobs:
           path: |
             subconverter_*.7z
 
-      - name: Draft Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') }}
-        with:
-          files: subconverter_win32.7z
-          draft: true
-          tag_name: Alpha
-
   Upload-Release:
     permissions: write-all
     if: ${{ github.ref_type=='branch' }}
@@ -243,7 +235,6 @@ jobs:
         armv7_build,
         armhf_build,
         aarch64_build,
-        macos_build,
         windows64_build,
         windows32_build,
       ]
