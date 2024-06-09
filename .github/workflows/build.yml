@@ -166,70 +166,78 @@ jobs:
         generate_release_notes: true
 
   Upload-Release:
-    permissions: write-all
-    if: ${{ github.ref_type=='branch' }}
-    needs:
-      [
-        linux64_build,
-        linux32_build,
-        armv7_build,
-        armhf_build,
-        aarch64_build
-      ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete current release assets
-        uses: andreaswilli/delete-release-assets-action@v2.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: Alpha
-          deleteOnlyFromDrafts: false
+  permissions: write-all
+  if: ${{ github.ref_type == 'branch' }}
+  needs:
+    [
+      linux64_build,
+      linux32_build,
+      armv7_build,
+      armhf_build,
+      aarch64_build
+    ]
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: artifact
+        path: bin/
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: artifact
-          path: bin/
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: bin
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: bin
+    - name: Tag Repo
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const tagName = 'Alpha';
+          const ref = `refs/tags/${tagName}`;
+          const sha = '${{ github.sha }}';
 
-      - name: Tag Repo
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const tagName = 'Alpha';
-            const ref = `refs/tags/${tagName}`;
-            const sha = '${{ github.sha }}';
+          const { Octokit } = require("@octokit/rest");
+          const octokit = new Octokit({ auth: process.env.ACTIONS_TOKEN });
 
-            // Delete the tag if it already exists
-            try {
-              await github.git.deleteRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref
-              });
-            } catch (error) {
-              if (error.status !== 422) {
-                throw error;
-              }
-            }
-
-            // Create the tag
-            await github.git.createRef({
+          // Check if the tag already exists
+          let tagExists = false;
+          try {
+            await octokit.git.getRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref,
-              sha
+              ref: `tags/${tagName}`
             });
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            tagExists = true;
+          } catch (error) {
+            if (error.status !== 404) {
+              throw error;
+            }
+          }
 
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ success() }}
-        with:
-          tag: Alpha
-          tag_name: Alpha
-          files: bin/*
-          generate_release_notes: true
+          // Delete the tag if it already exists
+          if (tagExists) {
+            await octokit.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `tags/${tagName}`
+            });
+          }
+
+          // Create the tag
+          await octokit.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref,
+            sha
+          });
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+
+    - name: Upload Release
+      uses: softprops/action-gh-release@v1
+      if: ${{ success() }}
+      with:
+        tag_name: Alpha
+        files: bin/*
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
