@@ -86,7 +86,7 @@ jobs:
       working-directory: bin
       
     - name: Tag Repo
-        uses: richardsimko/update-tag@v1
+      uses: richardsimko/update-tag@v1
         with:
           tag_name: Alpha
         env:
