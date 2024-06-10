@@ -1,9 +1,9 @@
 # subconverter
 
-本项目主要用于clash本地订阅转换的后端服务，支持vless、vmess协议，目的是自己方便使用。
+本项目主要用于clash本地订阅转换的后端服务，支持trojan、ss、vless、vmess协议，目的是方便自己使用。
 
 ## 新增内容
-2024/6/10 修改了subconverter的默认端口，从25500改为80，并发布了Alpha版本 Linux下运行的程序
+2024/6/10 修改了subconverter的默认端口，从25500改为80，并发布了Alpha版本，Linux/amd64下运行的程序 和 Docker镜像
 
 
 ## 以下为fork [github/MetaCubeX/subconverter](https://github.com/MetaCubeX/subconverter) 带过来的更新信息
