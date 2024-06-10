@@ -2,7 +2,7 @@
 
 Utility to convert between various proxy subscription formats.
 
-Fork from github/MetaCubeX/subconverter
+Fork from github/MetaCubeX/subconverter, but the source project is github/tindy2013/subconverter.
 
 Support the trojan, ss, vless and vmess type.
 
