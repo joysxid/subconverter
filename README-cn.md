@@ -1,5 +1,13 @@
 # subconverter
 
+本项目主要用于clash本地订阅转换的后端服务，支持vless、vmess协议，目的是自己方便使用。
+
+## 新增内容
+2024/6/10 修改了subconverter的默认端口，从25500改为80，并发布了Alpha版本 Linux下运行的程序
+
+
+## 以下为fork [github/MetaCubeX/subconverter](https://github.com/MetaCubeX/subconverter) 带过来的更新信息
+
 在各种订阅格式之间进行转换的实用程序.
 
 [![Build Status](https://github.com/tindy2013/subconverter/actions/workflows/build.yml/badge.svg)](https://github.com/tindy2013/subconverter/actions)
@@ -8,8 +16,6 @@
 [![GitHub license](https://img.shields.io/github/license/tindy2013/subconverter.svg)](https://github.com/tindy2013/subconverter/blob/master/LICENSE)
 
 * * *
-
-## 新增内容
 
 2021/10/1
 
