@@ -4,7 +4,9 @@ Utility to convert between various proxy subscription formats.
 
 Fork from github/MetaCubeX/subconverter, but the source project is github/tindy2013/subconverter.
 
-Support the trojan, ss, vless and vmess type.
+This version support the trojan, ss, vless and vmess type for clash subcription.
+
+The default port 25500 of the subconverter server has been changed to 80. 
 
 Just for my personal using.
 
