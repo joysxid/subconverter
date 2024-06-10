@@ -2,15 +2,14 @@
 
 Utility to convert between various proxy subscription formats.
 
-Fork from github/MetaCubeX/subconverter
+[![Build Status](https://github.com/tindy2013/subconverter/actions/workflows/build.yml/badge.svg)](https://github.com/tindy2013/subconverter/actions)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/tindy2013/subconverter.svg)](https://github.com/tindy2013/subconverter/tags)
+[![GitHub release](https://img.shields.io/github/release/tindy2013/subconverter.svg)](https://github.com/tindy2013/subconverter/releases)
+[![GitHub license](https://img.shields.io/github/license/tindy2013/subconverter.svg)](https://github.com/tindy2013/subconverter/blob/master/LICENSE)
 
-Support the trojan, ss, vless and vmess type.
+[Docker README](https://github.com/tindy2013/subconverter/blob/master/README-docker.md)
 
-Just for my personal using.
-
-[Docker README](https://github.com/toolsbox/subconverter/blob/master/README-docker.md)
-
-[中文文档](https://github.com/toolsbox/subconverter/blob/master/README-cn.md)
+[中文文档](https://github.com/tindy2013/subconverter/blob/master/README-cn.md)
 
 - [subconverter](#subconverter)
   - [Supported Types](#supported-types)
