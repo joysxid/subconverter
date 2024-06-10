@@ -99,7 +99,6 @@ jobs:
           name: digest_386
           path: /tmp/digest.txt
 
-  
   build:
     name: Build
     needs: [amd64_build, x86_build]
